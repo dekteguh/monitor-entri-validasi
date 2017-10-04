@@ -5,7 +5,7 @@
  */
 package id.go.bps.lampung.monitorentri.db;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *

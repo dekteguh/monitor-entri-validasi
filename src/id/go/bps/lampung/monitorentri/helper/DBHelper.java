@@ -8,8 +8,6 @@ package id.go.bps.lampung.monitorentri.helper;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,6 +26,7 @@ public class DBHelper {
             dataSource.setPassword(DBProperty.getPassword());
             try {
                 connection = dataSource.getConnection();
+                System.out.println(TAG + ": " + "Koneksi berhasil!");
             }catch(SQLException ex){
                 System.out.println(TAG + ": " + ex.getMessage());
             }
