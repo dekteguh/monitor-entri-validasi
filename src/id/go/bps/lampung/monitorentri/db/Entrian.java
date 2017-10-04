@@ -5,7 +5,7 @@
  */
 package id.go.bps.lampung.monitorentri.db;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -15,15 +15,26 @@ public class Entrian {
     
     private String entrianId;
     private String kabkotaId;
-    private String nomorBatch;
-    private String jumlahDokSerah;
-    private String jumlahDokTerima;
+    private int nomorBatch;
+    private int jumlahDokSerah;
+    private int jumlahDokTerima;
     private String operatorEntri;
-    private Date waktuEntri;
+    private Date waktuSerah;
+    private Date waktuTerima;
     private int isSerah;
     private int isTerima;
-
+    private String namaSurveiSensus;
+    private Date waktuSimpan;
+    
     public Entrian() {
+    }
+
+    public String getNamaSurveiSensus() {
+        return namaSurveiSensus;
+    }
+
+    public void setNamaSurveiSensus(String namaSurveiSensus) {
+        this.namaSurveiSensus = namaSurveiSensus;
     }
     
     public String getEntrianId() {
@@ -42,27 +53,27 @@ public class Entrian {
         this.kabkotaId = kabkotaId;
     }
 
-    public String getNomorBatch() {
+    public int getNomorBatch() {
         return nomorBatch;
     }
 
-    public void setNomorBatch(String nomorBatch) {
+    public void setNomorBatch(int nomorBatch) {
         this.nomorBatch = nomorBatch;
     }
 
-    public String getJumlahDokSerah() {
+    public int getJumlahDokSerah() {
         return jumlahDokSerah;
     }
 
-    public void setJumlahDokSerah(String jumlahDokSerah) {
+    public void setJumlahDokSerah(int jumlahDokSerah) {
         this.jumlahDokSerah = jumlahDokSerah;
     }
 
-    public String getJumlahDokTerima() {
+    public int getJumlahDokTerima() {
         return jumlahDokTerima;
     }
 
-    public void setJumlahDokTerima(String jumlahDokTerima) {
+    public void setJumlahDokTerima(int jumlahDokTerima) {
         this.jumlahDokTerima = jumlahDokTerima;
     }
 
@@ -74,13 +85,31 @@ public class Entrian {
         this.operatorEntri = operatorEntri;
     }
 
-    public Date getWaktuEntri() {
-        return waktuEntri;
+    public Date getWaktuSerah() {
+        return waktuSerah;
     }
 
-    public void setWaktuEntri(Date waktuEntri) {
-        this.waktuEntri = waktuEntri;
+    public void setWaktuSerah(Date waktuSerah) {
+        this.waktuSerah = waktuSerah;
     }
+
+    public Date getWaktuTerima() {
+        return waktuTerima;
+    }
+
+    public void setWaktuTerima(Date waktuTerima) {
+        this.waktuTerima = waktuTerima;
+    }
+
+    public Date getWaktuSimpan() {
+        return waktuSimpan;
+    }
+
+    public void setWaktuSimpan(Date waktuSimpan) {
+        this.waktuSimpan = waktuSimpan;
+    }
+
+    
 
     public int getIsSerah() {
         return isSerah;
