@@ -8,7 +8,6 @@ package id.go.bps.lampung.monitorentri.ui;
 import id.go.bps.lampung.monitorentri.db.Entrian;
 import id.go.bps.lampung.monitorentri.helper.Common;
 import id.go.bps.lampung.monitorentri.service.EntrianService;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -101,7 +100,11 @@ public class EntrianPanel extends javax.swing.JPanel {
         //tabelEntrian.getTableHeader().setBackground(Color.WHITE);
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 14);
         tabelEntrian.getTableHeader().setFont(f);
-
+        ((DefaultTableCellRenderer) tabelEntrian.getTableHeader().getDefaultRenderer()).setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        ((DefaultTableCellRenderer) tabelEntrian.getTableHeader().getDefaultRenderer()).setVerticalAlignment((int) CENTER_ALIGNMENT);
+        
+        tabelEntrian.setRowHeight(30);
+        
         DefaultTableCellRenderer centerCellRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -342,15 +345,20 @@ public class EntrianPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tabelEntrian.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        tabelEntrian.setSize(new java.awt.Dimension(450, 80));
         jScrollPane1.setViewportView(tabelEntrian);
         if (tabelEntrian.getColumnModel().getColumnCount() > 0) {
             tabelEntrian.getColumnModel().getColumn(0).setResizable(false);
+            tabelEntrian.getColumnModel().getColumn(0).setPreferredWidth(150);
             tabelEntrian.getColumnModel().getColumn(1).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tabelEntrian.getColumnModel().getColumn(1).setPreferredWidth(20);
             tabelEntrian.getColumnModel().getColumn(2).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tabelEntrian.getColumnModel().getColumn(2).setPreferredWidth(20);
             tabelEntrian.getColumnModel().getColumn(3).setResizable(false);
+            tabelEntrian.getColumnModel().getColumn(3).setPreferredWidth(30);
             tabelEntrian.getColumnModel().getColumn(4).setResizable(false);
+            tabelEntrian.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
         btnLihatEntrian.setBackground(new java.awt.Color(255, 0, 51));
