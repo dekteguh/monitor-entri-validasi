@@ -33,10 +33,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void checkLogin(boolean b){
         if(b){
-            MainFrame.this.mainPanel.remove(new LoginPanel(this));
+            //MainFrame.this.mainPanel.remove(new LoginPanel(this));
             MainFrame.this.mainPanel.add(new EntrianPanel(this));
         }else{
-            MainFrame.this.mainPanel.remove(new EntrianPanel(this));
+            //MainFrame.this.mainPanel.remove(new EntrianPanel(this));
             MainFrame.this.mainPanel.add(new LoginPanel(this));
         }
     }
@@ -52,10 +52,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         mainPanel = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        menuEntri = new javax.swing.JLabel();
+        menuValidasi = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        menuProgress = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,25 +65,44 @@ public class MainFrame extends javax.swing.JFrame {
         headerPanel.setBackground(new java.awt.Color(0, 102, 102));
         headerPanel.setPreferredSize(new java.awt.Dimension(1024, 54));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entri");
+        menuEntri.setBackground(new java.awt.Color(0, 102, 255));
+        menuEntri.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        menuEntri.setForeground(new java.awt.Color(255, 255, 255));
+        menuEntri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuEntri.setText("Entri");
+        menuEntri.setOpaque(true);
+        menuEntri.setPreferredSize(new java.awt.Dimension(41, 30));
+        menuEntri.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuEntriMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Validasi");
+        menuValidasi.setBackground(new java.awt.Color(0, 102, 255));
+        menuValidasi.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        menuValidasi.setForeground(new java.awt.Color(255, 255, 255));
+        menuValidasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuValidasi.setText("Validasi");
+        menuValidasi.setOpaque(true);
+        menuValidasi.setPreferredSize(new java.awt.Dimension(68, 30));
+        menuValidasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuValidasiMouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Versi 1.0.0");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Progress");
+        menuProgress.setBackground(new java.awt.Color(0, 102, 255));
+        menuProgress.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        menuProgress.setForeground(new java.awt.Color(255, 255, 255));
+        menuProgress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuProgress.setText("Progress");
+        menuProgress.setOpaque(true);
+        menuProgress.setPreferredSize(new java.awt.Dimension(78, 30));
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -91,11 +110,11 @@ public class MainFrame extends javax.swing.JFrame {
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuEntri, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuValidasi, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -103,12 +122,12 @@ public class MainFrame extends javax.swing.JFrame {
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(menuEntri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menuValidasi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(menuProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -132,13 +151,23 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menuEntriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEntriMouseClicked
+        // TODO add your handling code here:
+        MainFrame.this.mainPanel.add(new EntrianPanel(this));
+    }//GEN-LAST:event_menuEntriMouseClicked
+
+    private void menuValidasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuValidasiMouseClicked
+        // TODO add your handling code here:
+        MainFrame.this.mainPanel.add(new ValidasiPanel(this));
+    }//GEN-LAST:event_menuValidasiMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel menuEntri;
+    private javax.swing.JLabel menuProgress;
+    private javax.swing.JLabel menuValidasi;
     // End of variables declaration//GEN-END:variables
 }

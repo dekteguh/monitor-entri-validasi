@@ -186,7 +186,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         jLabel3.setText("Nomor Batch");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel4.setText("Jumlah Dok. Diambil");
+        jLabel4.setText("Jumlah Dok. Diserahkan");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel5.setText("Operator");
@@ -224,7 +224,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         btnSerahDok.setBackground(new java.awt.Color(255, 153, 0));
         btnSerahDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnSerahDok.setForeground(new java.awt.Color(255, 255, 255));
-        btnSerahDok.setText("Ambil Dokumen");
+        btnSerahDok.setText("Serah Dokumen");
         btnSerahDok.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
         btnSerahDok.setOpaque(true);
         btnSerahDok.setSize(new java.awt.Dimension(97, 35));
@@ -235,7 +235,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel6.setText("Jumlah Dok. Dikembalikan");
+        jLabel6.setText("Jumlah Dok. Diterima");
 
         jmlDokTerima.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jmlDokTerima.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -249,7 +249,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         btnTerimaDok.setBackground(new java.awt.Color(0, 153, 102));
         btnTerimaDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnTerimaDok.setForeground(new java.awt.Color(255, 255, 255));
-        btnTerimaDok.setText("Kembalikan Dokumen");
+        btnTerimaDok.setText("Terima Dokumen");
         btnTerimaDok.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 102), 1, true));
         btnTerimaDok.setOpaque(true);
         btnTerimaDok.setSize(new java.awt.Dimension(97, 35));
@@ -333,7 +333,7 @@ public class EntrianPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Kabupaten/Kota", "No. Batch", "Jumlah Dokumen Ambil", "Operator"
+                "ID", "Kabupaten/Kota", "No. Batch", "Jumlah Dokumen Serah", "Operator"
             }
         ) {
             boolean[] canEdit = new boolean [] {
