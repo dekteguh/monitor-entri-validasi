@@ -6,7 +6,6 @@
 package id.go.bps.lampung.monitorentri.ui;
 
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -72,34 +71,14 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel3.setText("Sensus/Survei");
 
         tUsername.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tUsername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 102), 1, true));
-        tUsername.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tUsernameKeyPressed(evt);
-            }
-        });
 
         tPassword.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 102), 1, true));
-        tPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tPasswordKeyPressed(evt);
-            }
-        });
 
         cmbSurvei.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cmbSurvei.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Sensus/Survei -", "SE2016 UMK UMB" }));
-        cmbSurvei.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 102), 1, true));
 
-        bLogin.setBackground(new java.awt.Color(255, 153, 0));
         bLogin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        bLogin.setForeground(new java.awt.Color(255, 255, 255));
         bLogin.setText("Login");
-        bLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        bLogin.setBorderPainted(false);
-        bLogin.setOpaque(true);
         bLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLoginActionPerformed(evt);
@@ -174,46 +153,22 @@ public class LoginPanel extends javax.swing.JPanel {
             resetForm();
         }
         else{
-            if(username.equals("admin") && password.equals("admin") && sensusSurvei == 1){
-                JOptionPane.showMessageDialog(this, "Selamat datang, Admin!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                this.mainFrame.setLogged(true, 1, cmbSurvei.getSelectedItem().toString());
-            }else if(username.equals("operator") && password.equals("operator") && sensusSurvei == 1){
+            if(username.equals("operator") && password.equals("operator") && sensusSurvei == 1){
                 JOptionPane.showMessageDialog(this, "Selamat datang, Operator!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                this.mainFrame.setLogged(true, 3, cmbSurvei.getSelectedItem().toString());
+                //this.mainFrame.setLogged(true, username, cmbSurvei.getSelectedItem().toString());
+                this.mainFrame.checkLogin(true);
             }else if(username.equals("supervisor") && password.equals("supervisor") && sensusSurvei == 1){
-                this.mainFrame.setLogged(true, 2, cmbSurvei.getSelectedItem().toString());
+                this.mainFrame.setLogged(true, username, cmbSurvei.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Selamat datang, Supervisor!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
             }else{
-                this.mainFrame.setLogged(false, 0, "");
+                this.mainFrame.setLogged(false, "", "");
                 JOptionPane.showMessageDialog(this, "Username/Password/pilihan Sensus/Survei masih salah!", "Error", JOptionPane.ERROR_MESSAGE);
+                this.setVisible(true);
             }
             resetForm();
         }
     }//GEN-LAST:event_bLoginActionPerformed
-
-    private void tUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tUsernameKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(tUsername.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "Isian username kosong!", "Error", JOptionPane.ERROR_MESSAGE);
-                tUsername.requestFocus();
-            }else{
-                tPassword.requestFocus();
-            }
-        }
-    }//GEN-LAST:event_tUsernameKeyPressed
-
-    private void tPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPasswordKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(tPassword.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "Isian password kosong!", "Error", JOptionPane.ERROR_MESSAGE);
-                tPassword.requestFocus();
-            }else{
-                cmbSurvei.requestFocus();
-            }
-        }
-    }//GEN-LAST:event_tPasswordKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
