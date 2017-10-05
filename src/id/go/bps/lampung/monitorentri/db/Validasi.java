@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author ekoteguh
  */
-public class Entrian {
+public class Validasi {
     
     private String entrianId;
     private String kabkotaId;
@@ -26,7 +26,7 @@ public class Entrian {
     private String namaSurveiSensus;
     private Date waktuSimpan;
     
-    public Entrian() {
+    public Validasi() {
     }
 
     public String getNamaSurveiSensus() {

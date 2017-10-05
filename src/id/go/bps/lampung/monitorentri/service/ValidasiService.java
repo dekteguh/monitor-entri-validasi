@@ -5,7 +5,7 @@
  */
 package id.go.bps.lampung.monitorentri.service;
 
-import id.go.bps.lampung.monitorentri.db.Entrian;
+import id.go.bps.lampung.monitorentri.db.Validasi;
 import id.go.bps.lampung.monitorentri.helper.DBHelper;
 import id.go.bps.lampung.monitorentri.helper.QueryHelper;
 import java.sql.Date;
@@ -19,16 +19,16 @@ import java.util.List;
  *
  * @author ekoteguh
  */
-public class EntrianService {
+public class ValidasiService {
     
-    private static final String TAG = EntrianService.class.getSimpleName();
+    private static final String TAG = ValidasiService.class.getSimpleName();
     
-    public static long insertEntrian(Entrian entrian) throws SQLException{
+    public static long insertValidasi(Validasi entrian) throws SQLException{
         long result = 0;
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
-            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.INSERT_ENTRIAN);
+            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.INSERT_VALIDASI);
             ps.setString(1, entrian.getEntrianId());
             ps.setString(2, entrian.getKabkotaId());
             ps.setInt(3, entrian.getNomorBatch());
@@ -39,7 +39,7 @@ public class EntrianService {
             ps.setString(8, entrian.getNamaSurveiSensus());
             result = ps.executeUpdate();
             helper.getConnection().commit();
-            System.out.println(TAG + ": User berhasil insert Entrian");
+            System.out.println(TAG + ": User berhasil insert Validasi");
         }catch(SQLException ex){
             System.out.println(TAG + ": " + ex.getMessage());
         }finally{
@@ -55,12 +55,12 @@ public class EntrianService {
         return result;
     }
     
-    public static long updateStatusTerimaEntrian(int jmlDokTerima, String id) throws SQLException{
+    public static long updateStatusTerimaValidasi(int jmlDokTerima, String id) throws SQLException{
         long result = 0;
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
-            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.UPDATE_STATUS_TERIMA);
+            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.UPDATE_STATUS_TERIMA_VALIDASI);
             ps.setInt(1, jmlDokTerima);
             ps.setDate(2, new Date(new java.util.Date().getTime()));
             ps.setInt(3, 1);
@@ -69,7 +69,7 @@ public class EntrianService {
             ps.setString(6, id);
             result = ps.executeUpdate();
             helper.getConnection().commit();
-            System.out.println(TAG + ": User berhasil update status terima Entrian");
+            System.out.println(TAG + ": User berhasil update status terima Validasi");
         }catch(SQLException ex){
             System.out.println(TAG + ": " + ex.getMessage());
         }finally{
@@ -85,7 +85,7 @@ public class EntrianService {
         return result;
     }
     
-    public static long destroyEntrian(String id) throws SQLException{
+    public static long destroyValidasi(String id) throws SQLException{
         long result = 0;
         DBHelper helper = new DBHelper();
         try{
@@ -94,7 +94,7 @@ public class EntrianService {
             ps.setString(1, id);
             result = ps.executeUpdate();
             helper.getConnection().commit();
-            System.out.println(TAG + ": User berhasil hapus Entrian");
+            System.out.println(TAG + ": User berhasil hapus Validasi");
         }catch(SQLException ex){
             System.out.println(TAG + ": " + ex.getMessage());
         }finally{
@@ -110,16 +110,16 @@ public class EntrianService {
         return result;
     }
     
-    public static Entrian getEntrian(String id) throws SQLException{
-        Entrian result = null;
+    public static Validasi getValidasi(String id) throws SQLException{
+        Validasi result = null;
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
-            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_ENTRIAN);
+            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_VALIDASI);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                result = new Entrian();
+                result = new Validasi();
                 result.setEntrianId(rs.getString("id"));
                 result.setKabkotaId(rs.getString("kabkota_id"));
                 result.setNomorBatch(rs.getInt("no_batch"));
@@ -134,7 +134,7 @@ public class EntrianService {
                 result.setNamaSurveiSensus(rs.getString("survei_sensus_id"));
             }
             helper.getConnection().commit();
-            System.out.println(TAG + ": User berhasil get satu Entrian");
+            System.out.println(TAG + ": User berhasil get satu Validasi");
         }catch(SQLException ex){
             System.out.println(TAG + ": " + ex.getMessage());
         }finally{
@@ -150,16 +150,16 @@ public class EntrianService {
         return result;
     }
     
-    public static List<Entrian> getEntrianByIsSerah(int isSerah) throws SQLException{
-        List<Entrian> result = new ArrayList<>();
+    public static List<Validasi> getValidasiByIsSerah(int isSerah) throws SQLException{
+        List<Validasi> result = new ArrayList<>();
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
-            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_ENTRIAN_BY_IS_SERAH);
+            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_VALIDASI_BY_IS_SERAH);
             ps.setInt(1, isSerah);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Entrian entrian = new Entrian();
+                Validasi entrian = new Validasi();
                 entrian.setEntrianId(rs.getString("id"));
                 entrian.setKabkotaId(rs.getString("kabkota_id"));
                 entrian.setNomorBatch(rs.getInt("no_batch"));
@@ -176,7 +176,7 @@ public class EntrianService {
             }
             
             helper.getConnection().commit();
-            System.out.println(TAG + ": User berhasil get banyak Entrian");
+            System.out.println(TAG + ": User berhasil get banyak Validasi");
         }catch(SQLException ex){
             System.out.println(TAG + ": " + ex.getMessage());
         }finally{

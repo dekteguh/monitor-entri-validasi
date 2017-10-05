@@ -20,4 +20,14 @@ public class QueryHelper {
     public static final String GET_ENTRIAN = "SELECT * FROM entrian WHERE id=?";
     
     public static final String GET_ENTRIAN_BY_IS_SERAH = "SELECT * FROM entrian WHERE is_serah=?";
+    
+    public static final String INSERT_VALIDASI = "INSERT INTO validasi(id,kabkota_id,no_batch,jml_dok_serah,waktu_serah,is_serah,operator_id,survei_sensus_id) VALUES(?,?,?,?,?,?,?,?);";
+    
+    public static final String UPDATE_STATUS_TERIMA_VALIDASI = "UPDATE validasi SET jml_dok_terima=?,waktu_terima=?,is_terima=?,is_serah=?,waktu_simpan=? WHERE id=?";
+ 
+    public static final String DELETE_VALIDASI = "DELETE FROM validasi WHERE id=?";
+    
+    public static final String GET_VALIDASI = "SELECT * FROM validasi WHERE id=?";
+    
+    public static final String GET_VALIDASI_BY_IS_SERAH = "SELECT * FROM validasi WHERE is_serah=?";
 }

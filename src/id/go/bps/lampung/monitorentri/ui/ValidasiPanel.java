@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ekoteguh
  */
-public class EntrianPanel extends javax.swing.JPanel {
+public class ValidasiPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form LoginPanel
@@ -35,7 +35,7 @@ public class EntrianPanel extends javax.swing.JPanel {
     MainFrame mainFrame;
     String entrianID;
     
-    public EntrianPanel(MainFrame frame) {
+    public ValidasiPanel(MainFrame frame) {
         this.mainFrame = frame;
         initComponents();
         this.customizeTable();
@@ -92,7 +92,7 @@ public class EntrianPanel extends javax.swing.JPanel {
                 i++;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -157,17 +157,17 @@ public class EntrianPanel extends javax.swing.JPanel {
         tabelEntrian = new javax.swing.JTable();
         btnLihatEntrian = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 153, 0));
+        setBackground(new java.awt.Color(0, 204, 102));
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 102));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel1.setForeground(new java.awt.Color(0, 153, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Form Entri Dokumen");
+        jLabel1.setText("Form Validasi Dokumen");
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jLabel1.setOpaque(true);
 
@@ -186,7 +186,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         jLabel3.setText("Nomor Batch");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel4.setText("Jumlah Dok. Diserahkan");
+        jLabel4.setText("Jumlah Dok. Diambil");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel5.setText("Operator");
@@ -224,7 +224,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         btnSerahDok.setBackground(new java.awt.Color(255, 153, 0));
         btnSerahDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnSerahDok.setForeground(new java.awt.Color(255, 255, 255));
-        btnSerahDok.setText("Serah Dokumen");
+        btnSerahDok.setText("Ambil Dokumen");
         btnSerahDok.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
         btnSerahDok.setOpaque(true);
         btnSerahDok.setSize(new java.awt.Dimension(97, 35));
@@ -235,7 +235,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel6.setText("Jumlah Dok. Diterima");
+        jLabel6.setText("Jumlah Dok. Dikembalikan");
 
         jmlDokTerima.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jmlDokTerima.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -249,7 +249,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         btnTerimaDok.setBackground(new java.awt.Color(0, 153, 102));
         btnTerimaDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnTerimaDok.setForeground(new java.awt.Color(255, 255, 255));
-        btnTerimaDok.setText("Terima Dokumen");
+        btnTerimaDok.setText("Kembalikan Dokumen");
         btnTerimaDok.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 102), 1, true));
         btnTerimaDok.setOpaque(true);
         btnTerimaDok.setSize(new java.awt.Dimension(97, 35));
@@ -291,7 +291,7 @@ public class EntrianPanel extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jmlDokTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnTerimaDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +333,7 @@ public class EntrianPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Kabupaten/Kota", "No. Batch", "Jumlah Dokumen Serah", "Operator"
+                "ID", "Kabupaten/Kota", "No. Batch", "Jumlah Dokumen Ambil", "Operator"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -401,7 +401,7 @@ public class EntrianPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -429,7 +429,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
             this.resetForm();
         } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnSerahDokActionPerformed
@@ -503,7 +503,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             this.resetForm();
             this.statusSerah();
         } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnTerimaDokActionPerformed
 
@@ -522,7 +522,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             this.jmlDokTerima.requestFocus();
             this.statusTerima();
         } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLihatEntrianActionPerformed
 
