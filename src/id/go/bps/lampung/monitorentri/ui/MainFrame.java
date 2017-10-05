@@ -231,6 +231,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnMenuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuProgressActionPerformed
         // TODO add your handling code here:
+        this.mainPanel.removeAll();
+        this.mainPanel.add(new ProgressPanel(this));
+        this.mainPanel.repaint();
+        this.mainPanel.revalidate();
         this.setMenuEnable(true, this.status);
     }//GEN-LAST:event_btnMenuProgressActionPerformed
 

@@ -6,12 +6,15 @@
 package id.go.bps.lampung.monitorentri.ui;
 
 import java.awt.FlowLayout;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
 
 /**
  *
  * @author ekoteguh
  */
-public class HomePanel extends javax.swing.JPanel {
+public class ProgressPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form LoginPanel
@@ -19,13 +22,21 @@ public class HomePanel extends javax.swing.JPanel {
     
     MainFrame mainFrame;
     
-    public HomePanel(MainFrame frame) {
+    public ProgressPanel(MainFrame frame) {
         this.mainFrame = frame;
         initComponents();
-        
-        HomePanel.this.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 200));
+        this.showChart();
     }
     
+    private void showChart(){
+        double[] xData = new double[] { 0.0, 1.0, 2.0 };
+        double[] yData = new double[] { 2.0, 1.0, 0.0 };
+        
+        // Create Chart
+        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+        // Show it
+        panelChart.add(new XChartPanel(chart));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,38 +47,28 @@ public class HomePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        panelChart = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 102, 0));
         setPreferredSize(new java.awt.Dimension(1024, 670));
+        setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setBackground(new java.awt.Color(0, 153, 102));
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Kendali Entri Validasi SE2016 UMK UMB");
-        jLabel1.setOpaque(true);
+        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
+        panelChart.setLayout(panelChartLayout);
+        panelChartLayout.setHorizontalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1024, Short.MAX_VALUE)
+        );
+        panelChartLayout.setVerticalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
-        );
+        add(panelChart, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel panelChart;
     // End of variables declaration//GEN-END:variables
 }
