@@ -41,6 +41,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         this.customizeTable();
         this.loadData();
         //this.statusSerah();
+        this.setTampilFormTerima(false);
     }
     
     private void resetForm(){
@@ -70,6 +71,13 @@ public class EntrianPanel extends javax.swing.JPanel {
         this.btnSerahDok.setEnabled(false);
         this.jmlDokTerima.setEnabled(true);
         this.btnTerimaDok.setEnabled(true);
+    }
+    
+    private void setTampilFormTerima(boolean b){
+        this.jLabel6.setVisible(b);
+        this.jmlDokTerima.setVisible(b);
+        this.btnTerimaDok.setVisible(b);
+        this.jmlDokTerima.requestFocus();
     }
     
     private void loadData(){
@@ -502,6 +510,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
             this.resetForm();
             this.statusSerah();
+            this.setTampilFormTerima(false);
         } catch (SQLException ex) {
             Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -521,6 +530,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             this.operatorId.setText(e.getOperatorEntri());
             this.jmlDokTerima.requestFocus();
             this.statusTerima();
+            this.setTampilFormTerima(true);
         } catch (SQLException ex) {
             Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
