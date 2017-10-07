@@ -166,6 +166,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         btnLihatEntrian = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 153, 0));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 

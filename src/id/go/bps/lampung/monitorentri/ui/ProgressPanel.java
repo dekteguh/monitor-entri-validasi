@@ -50,6 +50,7 @@ public class ProgressPanel extends javax.swing.JPanel {
         panelChart = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 102, 0));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 

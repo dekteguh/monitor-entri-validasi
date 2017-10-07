@@ -166,6 +166,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
         btnLihatEntrian = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 102));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 

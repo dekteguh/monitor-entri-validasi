@@ -5,6 +5,11 @@
  */
 package id.go.bps.lampung.monitorentri.ui;
 
+import id.go.bps.lampung.monitorentri.assets.ResourceImage;
+import id.go.bps.lampung.monitorentri.assets.StringImage;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ekoteguh
@@ -92,7 +97,12 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel(){
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(new ImageIcon(ResourceImage.getResource(StringImage.BACKGROUND_IMG)).getImage(),0,0,null);
+            }
+        };
         headerPanel = new javax.swing.JPanel();
         btnMenuEntri = new javax.swing.JButton();
         btnMenuValidasi = new javax.swing.JButton();
@@ -102,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainPanel.setOpaque(false);
         mainPanel.setPreferredSize(new java.awt.Dimension(1024, 670));
         mainPanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
@@ -168,7 +179,6 @@ public class MainFrame extends javax.swing.JFrame {
         btnMenuHome.setText("Home");
         btnMenuHome.setAlignmentY(0.0F);
         btnMenuHome.setBorderPainted(false);
-        btnMenuHome.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         btnMenuHome.setContentAreaFilled(false);
         btnMenuHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMenuHome.setPreferredSize(new java.awt.Dimension(35, 35));

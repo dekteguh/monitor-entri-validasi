@@ -39,6 +39,7 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 102, 0));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 102));

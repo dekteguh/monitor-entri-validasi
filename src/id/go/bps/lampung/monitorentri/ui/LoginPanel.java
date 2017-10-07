@@ -54,6 +54,7 @@ public class LoginPanel extends javax.swing.JPanel {
         bLogin = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 153));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 102));
