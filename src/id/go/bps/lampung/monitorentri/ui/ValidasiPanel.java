@@ -5,9 +5,9 @@
  */
 package id.go.bps.lampung.monitorentri.ui;
 
-import id.go.bps.lampung.monitorentri.db.Entrian;
+import id.go.bps.lampung.monitorentri.db.Validasi;
 import id.go.bps.lampung.monitorentri.helper.Common;
-import id.go.bps.lampung.monitorentri.service.EntrianService;
+import id.go.bps.lampung.monitorentri.service.ValidasiService;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -82,20 +82,20 @@ public class ValidasiPanel extends javax.swing.JPanel {
     
     private void loadData(){
         try {
-            List<Entrian> arr = EntrianService.getEntrianByIsSerah(1);
-            DefaultTableModel tableModel = (DefaultTableModel) this.tabelEntrian.getModel();
+            List<Validasi> arr = ValidasiService.getValidasiByIsSerah(1);
+            DefaultTableModel tableModel = (DefaultTableModel) this.tabelValidasi.getModel();
             while (tableModel.getRowCount() > 0){
                 tableModel.removeRow(0);
             }
             
             int i = 0;
-            for(Entrian e : arr){
+            for(Validasi v : arr){
                 tableModel.addRow(new Object[]{
-                    e.getEntrianId(),
-                    e.getKabkotaId(),
-                    e.getNomorBatch(),
-                    e.getJumlahDokSerah(),
-                    e.getOperatorEntri()
+                    v.getEntrianId(),
+                    v.getKabkotaId(),
+                    v.getNomorBatch(),
+                    v.getJumlahDokSerah(),
+                    v.getOperatorEntri()
                 });
                 i++;
             }
@@ -107,11 +107,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private void customizeTable() {
         //tabelEntrian.getTableHeader().setBackground(Color.WHITE);
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 14);
-        tabelEntrian.getTableHeader().setFont(f);
-        ((DefaultTableCellRenderer) tabelEntrian.getTableHeader().getDefaultRenderer()).setHorizontalAlignment((int) CENTER_ALIGNMENT);
-        ((DefaultTableCellRenderer) tabelEntrian.getTableHeader().getDefaultRenderer()).setVerticalAlignment((int) CENTER_ALIGNMENT);
+        tabelValidasi.getTableHeader().setFont(f);
+        ((DefaultTableCellRenderer) tabelValidasi.getTableHeader().getDefaultRenderer()).setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        ((DefaultTableCellRenderer) tabelValidasi.getTableHeader().getDefaultRenderer()).setVerticalAlignment((int) CENTER_ALIGNMENT);
         
-        tabelEntrian.setRowHeight(30);
+        tabelValidasi.setRowHeight(30);
         
         DefaultTableCellRenderer centerCellRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -130,11 +130,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 return cell;
             }
         };
-        tabelEntrian.getColumnModel().getColumn(0).setCellRenderer(centerCellRenderer);
-        tabelEntrian.getColumnModel().getColumn(1).setCellRenderer(centerCellRenderer);
-        tabelEntrian.getColumnModel().getColumn(2).setCellRenderer(centerCellRenderer);
-        tabelEntrian.getColumnModel().getColumn(3).setCellRenderer(centerCellRenderer);
-        tabelEntrian.getColumnModel().getColumn(4).setCellRenderer(centerCellRenderer);
+        tabelValidasi.getColumnModel().getColumn(0).setCellRenderer(centerCellRenderer);
+        tabelValidasi.getColumnModel().getColumn(1).setCellRenderer(centerCellRenderer);
+        tabelValidasi.getColumnModel().getColumn(2).setCellRenderer(centerCellRenderer);
+        tabelValidasi.getColumnModel().getColumn(3).setCellRenderer(centerCellRenderer);
+        tabelValidasi.getColumnModel().getColumn(4).setCellRenderer(centerCellRenderer);
     }
     
     /**
@@ -162,7 +162,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
         jmlDokTerima = new javax.swing.JTextField();
         btnTerimaDok = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelEntrian = new javax.swing.JTable();
+        tabelValidasi = new javax.swing.JTable();
         btnLihatEntrian = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 204, 102));
@@ -332,8 +332,8 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        tabelEntrian.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        tabelEntrian.setModel(new javax.swing.table.DefaultTableModel(
+        tabelValidasi.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tabelValidasi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -352,20 +352,20 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabelEntrian.setSelectionBackground(new java.awt.Color(0, 153, 102));
-        tabelEntrian.setSize(new java.awt.Dimension(450, 80));
-        jScrollPane1.setViewportView(tabelEntrian);
-        if (tabelEntrian.getColumnModel().getColumnCount() > 0) {
-            tabelEntrian.getColumnModel().getColumn(0).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tabelEntrian.getColumnModel().getColumn(1).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tabelEntrian.getColumnModel().getColumn(2).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tabelEntrian.getColumnModel().getColumn(3).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(3).setPreferredWidth(30);
-            tabelEntrian.getColumnModel().getColumn(4).setResizable(false);
-            tabelEntrian.getColumnModel().getColumn(4).setPreferredWidth(20);
+        tabelValidasi.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        tabelValidasi.setSize(new java.awt.Dimension(450, 80));
+        jScrollPane1.setViewportView(tabelValidasi);
+        if (tabelValidasi.getColumnModel().getColumnCount() > 0) {
+            tabelValidasi.getColumnModel().getColumn(0).setResizable(false);
+            tabelValidasi.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tabelValidasi.getColumnModel().getColumn(1).setResizable(false);
+            tabelValidasi.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tabelValidasi.getColumnModel().getColumn(2).setResizable(false);
+            tabelValidasi.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tabelValidasi.getColumnModel().getColumn(3).setResizable(false);
+            tabelValidasi.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tabelValidasi.getColumnModel().getColumn(4).setResizable(false);
+            tabelValidasi.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
         btnLihatEntrian.setBackground(new java.awt.Color(255, 0, 51));
@@ -418,7 +418,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private void btnSerahDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerahDokActionPerformed
         try {
             // TODO add your handling code here:
-            Entrian entrian = new Entrian();
+            Validasi entrian = new Validasi();
             entrian.setEntrianId(Common.generateUuid());
             entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
             entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
@@ -428,7 +428,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
             entrian.setIsSerah(1);
             entrian.setNamaSurveiSensus("SE2016 UMK UMB");
             
-            long result = EntrianService.insertEntrian(entrian);
+            long result = ValidasiService.insertValidasi(entrian);
             if(result == 1){
                 JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 this.loadData();
@@ -501,7 +501,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private void btnTerimaDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerimaDokActionPerformed
         // TODO add your handling code here:
         try {
-            long result = EntrianService.updateStatusTerimaEntrian(Integer.parseInt(this.jmlDokTerima.getText()), this.entrianID);
+            long result = ValidasiService.updateStatusTerimaValidasi(Integer.parseInt(this.jmlDokTerima.getText()), this.entrianID);
             if(result == 1){
                 JOptionPane.showMessageDialog(this, "Data berhasil diupdate!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 this.loadData();
@@ -518,11 +518,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
 
     private void btnLihatEntrianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatEntrianActionPerformed
         // TODO add your handling code here:
-        int row = tabelEntrian.getSelectedRow();
-        String ID = tabelEntrian.getValueAt(row, 0).toString();
+        int row = tabelValidasi.getSelectedRow();
+        String ID = tabelValidasi.getValueAt(row, 0).toString();
         this.entrianID = ID;
         try {
-            Entrian e = EntrianService.getEntrian(ID);
+            Validasi e = ValidasiService.getValidasi(ID);
             String kabkota = e.getKabkotaId().substring(2, 4);
             this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
             this.noBatch.setText(String.valueOf(e.getNomorBatch()));
@@ -555,6 +555,6 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> kabkotaId;
     private javax.swing.JTextField noBatch;
     private javax.swing.JTextField operatorId;
-    private javax.swing.JTable tabelEntrian;
+    private javax.swing.JTable tabelValidasi;
     // End of variables declaration//GEN-END:variables
 }
