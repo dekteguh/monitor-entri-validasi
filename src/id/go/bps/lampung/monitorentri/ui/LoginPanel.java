@@ -57,7 +57,7 @@ public class LoginPanel extends javax.swing.JPanel {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1024, 670));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
