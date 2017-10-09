@@ -525,7 +525,13 @@ public class ValidasiPanel extends javax.swing.JPanel {
         try {
             Validasi e = ValidasiService.getValidasi(ID);
             String kabkota = e.getKabkotaId().substring(2, 4);
-            this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
+            if(kabkota.equals("71")){
+                this.kabkotaId.setSelectedIndex(14);
+            }else if(kabkota.equals("72")){
+                this.kabkotaId.setSelectedIndex(15);
+            }else{
+                this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
+            }
             this.noBatch.setText(String.valueOf(e.getNomorBatch()));
             this.jmlDokSerah.setText(String.valueOf(e.getJumlahDokSerah()));
             this.operatorId.setText(e.getOperatorEntri());
