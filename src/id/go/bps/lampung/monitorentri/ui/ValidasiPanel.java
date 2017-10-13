@@ -5,8 +5,11 @@
  */
 package id.go.bps.lampung.monitorentri.ui;
 
+import id.go.bps.lampung.monitorentri.db.Entrian;
+import id.go.bps.lampung.monitorentri.db.Operator;
 import id.go.bps.lampung.monitorentri.db.Validasi;
 import id.go.bps.lampung.monitorentri.helper.Common;
+import id.go.bps.lampung.monitorentri.service.OperatorService;
 import id.go.bps.lampung.monitorentri.service.ValidasiService;
 import java.awt.Component;
 import java.awt.Font;
@@ -42,13 +45,14 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.loadData();
         //this.statusSerah();
         this.setTampilFormTerima(false);
+        this.loadOperator();
     }
     
     private void resetForm(){
         this.kabkotaId.setSelectedIndex(0);
         this.noBatch.setText("");
         this.jmlDokSerah.setText("");
-        this.operatorId.setText("");
+        this.operatorId.setSelectedIndex(0);
         this.jmlDokTerima.setText("");
         this.kabkotaId.requestFocus();
     }
@@ -80,6 +84,19 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.jmlDokTerima.requestFocus();
     }
     
+    private void loadOperator(){
+        try{
+            operatorId.removeAllItems();
+            operatorId.addItem("-Pilih Nama Operator-");
+            List<Operator> arr = OperatorService.getOperatorsEntri("Organik");
+            for(Operator o : arr){
+                operatorId.addItem(o.getOperatorId());
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void loadData(){
         try {
             List<Validasi> arr = ValidasiService.getValidasiByIsSerah(1);
@@ -103,6 +120,31 @@ public class ValidasiPanel extends javax.swing.JPanel {
             Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void loadDataByOperator(String operator){
+        try {
+            List<Validasi> arr = OperatorService.searchOperatorsValidasiByKeyword(operator);
+            DefaultTableModel tableModel = (DefaultTableModel) this.tabelValidasi.getModel();
+            while (tableModel.getRowCount() > 0){
+                tableModel.removeRow(0);
+            }
+            
+            int i = 0;
+            for(Validasi e : arr){
+                tableModel.addRow(new Object[]{
+                    e.getEntrianId(),
+                    e.getKabkotaId(),
+                    e.getNomorBatch(),
+                    e.getJumlahDokSerah(),
+                    e.getOperatorEntri()
+                });
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     private void customizeTable() {
         //tabelEntrian.getTableHeader().setBackground(Color.WHITE);
@@ -156,14 +198,16 @@ public class ValidasiPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         noBatch = new javax.swing.JTextField();
         jmlDokSerah = new javax.swing.JTextField();
-        operatorId = new javax.swing.JTextField();
         btnSerahDok = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jmlDokTerima = new javax.swing.JTextField();
         btnTerimaDok = new javax.swing.JButton();
+        operatorId = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelValidasi = new javax.swing.JTable();
         btnLihatEntrian = new javax.swing.JButton();
+        cariOperator = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 204, 102));
         setOpaque(false);
@@ -218,18 +262,6 @@ public class ValidasiPanel extends javax.swing.JPanel {
             }
         });
 
-        operatorId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        operatorId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        operatorId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        operatorId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                operatorIdKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                operatorIdKeyPressed(evt);
-            }
-        });
-
         btnSerahDok.setBackground(new java.awt.Color(255, 153, 0));
         btnSerahDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnSerahDok.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,6 +300,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
             }
         });
 
+        operatorId.setBackground(new java.awt.Color(255, 255, 255));
+        operatorId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        operatorId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Nama Operator -" }));
+        operatorId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -291,16 +328,15 @@ public class ValidasiPanel extends javax.swing.JPanel {
                             .addComponent(noBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jmlDokSerah, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kabkotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(operatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(kabkotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(51, 51, 51)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jmlDokTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTerimaDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnTerimaDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(operatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,7 +389,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabelValidasi.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        tabelValidasi.setSelectionBackground(new java.awt.Color(255, 153, 0));
         tabelValidasi.setSize(new java.awt.Dimension(450, 80));
         jScrollPane1.setViewportView(tabelValidasi);
         if (tabelValidasi.getColumnModel().getColumnCount() > 0) {
@@ -382,6 +418,22 @@ public class ValidasiPanel extends javax.swing.JPanel {
             }
         });
 
+        cariOperator.setBackground(new java.awt.Color(255, 51, 51));
+        cariOperator.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        cariOperator.setForeground(new java.awt.Color(255, 255, 255));
+        cariOperator.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cariOperator.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        cariOperator.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cariOperatorKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Cari Operator:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -391,13 +443,14 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cariOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,8 +462,12 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cariOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -424,7 +481,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
             entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
             entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
             entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
-            entrian.setOperatorEntri(operatorId.getText());
+            entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
             entrian.setWaktuSerah(new Date());
             entrian.setIsSerah(1);
             entrian.setNamaSurveiSensus("SE2016 UMK UMB");
@@ -466,26 +523,6 @@ public class ValidasiPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jmlDokSerahKeyPressed
-
-    private void operatorIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_operatorIdKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(this.operatorId.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "Isian masih kosong", "Error", JOptionPane.ERROR_MESSAGE);
-                this.operatorId.requestFocus();
-            }else{
-                this.btnSerahDok.requestFocus();
-            }
-        }
-    }//GEN-LAST:event_operatorIdKeyPressed
-
-    private void operatorIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_operatorIdKeyTyped
-        // TODO add your handling code here:
-        char keyChar = evt.getKeyChar();
-        if(Character.isLowerCase(keyChar)){
-            evt.setKeyChar(Character.toUpperCase(keyChar));
-        }
-    }//GEN-LAST:event_operatorIdKeyTyped
 
     private void jmlDokTerimaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmlDokTerimaKeyPressed
         // TODO add your handling code here:
@@ -534,7 +571,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
             }
             this.noBatch.setText(String.valueOf(e.getNomorBatch()));
             this.jmlDokSerah.setText(String.valueOf(e.getJumlahDokSerah()));
-            this.operatorId.setText(e.getOperatorEntri());
+            this.operatorId.setSelectedItem(e.getOperatorEntri());
             this.jmlDokTerima.requestFocus();
             this.statusTerima();
             this.setTampilFormTerima(true);
@@ -543,17 +580,33 @@ public class ValidasiPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLihatEntrianActionPerformed
 
+    private void cariOperatorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariOperatorKeyTyped
+        // TODO add your handling code here:
+        char keyChar = evt.getKeyChar();
+        if(Character.isLowerCase(keyChar)){
+            evt.setKeyChar(Character.toUpperCase(keyChar));
+        }
+
+        if(this.cariOperator.getText().equals("")){
+            this.loadData();
+        }else{
+            this.loadDataByOperator(this.cariOperator.getText().trim());
+        }
+    }//GEN-LAST:event_cariOperatorKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLihatEntrian;
     private javax.swing.JButton btnSerahDok;
     private javax.swing.JButton btnTerimaDok;
+    private javax.swing.JTextField cariOperator;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -561,7 +614,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jmlDokTerima;
     private javax.swing.JComboBox<String> kabkotaId;
     private javax.swing.JTextField noBatch;
-    private javax.swing.JTextField operatorId;
+    private javax.swing.JComboBox<String> operatorId;
     private javax.swing.JTable tabelValidasi;
     // End of variables declaration//GEN-END:variables
 }

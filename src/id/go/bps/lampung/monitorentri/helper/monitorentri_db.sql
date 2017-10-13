@@ -43,3 +43,16 @@ CREATE TABLE validasi(
     survei_sensus_id varchar(255) not null,
     PRIMARY KEY(id)
 );
+
+CREATE TABLE wilayah(
+    id char(4) not null,
+    nama varchar(255) not null,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE operator(
+    id varchar(20) not null,
+    nama varchar(255) not null,
+    status varchar(20) not null,
+    PRIMARY KEY (id)
+);

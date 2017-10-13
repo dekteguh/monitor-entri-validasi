@@ -30,4 +30,9 @@ public class QueryHelper {
     public static final String GET_VALIDASI = "SELECT * FROM validasi WHERE id=?";
     
     public static final String GET_VALIDASI_BY_IS_SERAH = "SELECT * FROM validasi WHERE is_serah=?";
+    
+    public static final String GET_OPERATOR_BY_STATUS = "SELECT o.id as operator_id, o.nama as nama_operator FROM operator o WHERE o.status=?";
+
+    public static final String SEARCH_ENTRIAN_BY_OPERATOR = "SELECT * FROM entrian WHERE operator_id LIKE ? AND is_serah=1";
+    public static final String SEARCH_VALIDASI_BY_OPERATOR = "SELECT * FROM validasi WHERE operator_id LIKE ? AND is_serah=1";
 }

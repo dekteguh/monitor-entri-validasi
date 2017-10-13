@@ -6,8 +6,10 @@
 package id.go.bps.lampung.monitorentri.ui;
 
 import id.go.bps.lampung.monitorentri.db.Entrian;
+import id.go.bps.lampung.monitorentri.db.Operator;
 import id.go.bps.lampung.monitorentri.helper.Common;
 import id.go.bps.lampung.monitorentri.service.EntrianService;
+import id.go.bps.lampung.monitorentri.service.OperatorService;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -42,13 +44,14 @@ public class EntrianPanel extends javax.swing.JPanel {
         this.loadData();
         //this.statusSerah();
         this.setTampilFormTerima(false);
+        this.loadOperator();
     }
     
     private void resetForm(){
         this.kabkotaId.setSelectedIndex(0);
         this.noBatch.setText("");
         this.jmlDokSerah.setText("");
-        this.operatorId.setText("");
+        this.operatorId.setSelectedIndex(0);
         this.jmlDokTerima.setText("");
         this.kabkotaId.requestFocus();
     }
@@ -80,9 +83,46 @@ public class EntrianPanel extends javax.swing.JPanel {
         this.jmlDokTerima.requestFocus();
     }
     
+    private void loadOperator(){
+        try{
+            operatorId.removeAllItems();
+            operatorId.addItem("-Pilih Nama Operator-");
+            List<Operator> arr = OperatorService.getOperatorsEntri("Mitra");
+            for(Operator o : arr){
+                operatorId.addItem(o.getOperatorId());
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void loadData(){
         try {
             List<Entrian> arr = EntrianService.getEntrianByIsSerah(1);
+            DefaultTableModel tableModel = (DefaultTableModel) this.tabelEntrian.getModel();
+            while (tableModel.getRowCount() > 0){
+                tableModel.removeRow(0);
+            }
+            
+            int i = 0;
+            for(Entrian e : arr){
+                tableModel.addRow(new Object[]{
+                    e.getEntrianId(),
+                    e.getKabkotaId(),
+                    e.getNomorBatch(),
+                    e.getJumlahDokSerah(),
+                    e.getOperatorEntri()
+                });
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void loadDataByOperator(String operator){
+        try {
+            List<Entrian> arr = OperatorService.searchOperatorsEntriByKeyword(operator);
             DefaultTableModel tableModel = (DefaultTableModel) this.tabelEntrian.getModel();
             while (tableModel.getRowCount() > 0){
                 tableModel.removeRow(0);
@@ -156,14 +196,16 @@ public class EntrianPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         noBatch = new javax.swing.JTextField();
         jmlDokSerah = new javax.swing.JTextField();
-        operatorId = new javax.swing.JTextField();
         btnSerahDok = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jmlDokTerima = new javax.swing.JTextField();
         btnTerimaDok = new javax.swing.JButton();
+        operatorId = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelEntrian = new javax.swing.JTable();
         btnLihatEntrian = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cariOperator = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 153, 0));
         setOpaque(false);
@@ -218,18 +260,6 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
         });
 
-        operatorId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        operatorId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        operatorId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
-        operatorId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                operatorIdKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                operatorIdKeyPressed(evt);
-            }
-        });
-
         btnSerahDok.setBackground(new java.awt.Color(255, 153, 0));
         btnSerahDok.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnSerahDok.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,6 +298,11 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
         });
 
+        operatorId.setBackground(new java.awt.Color(255, 255, 255));
+        operatorId.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        operatorId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Nama Operator -" }));
+        operatorId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 1, true));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -285,7 +320,6 @@ public class EntrianPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSerahDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(noBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,13 +327,14 @@ public class EntrianPanel extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(kabkotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(operatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnSerahDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(51, 51, 51)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jmlDokTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTerimaDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnTerimaDok, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(operatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -382,6 +417,22 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Cari Operator:");
+
+        cariOperator.setBackground(new java.awt.Color(255, 51, 51));
+        cariOperator.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        cariOperator.setForeground(new java.awt.Color(255, 255, 255));
+        cariOperator.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cariOperator.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        cariOperator.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cariOperatorKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -391,13 +442,14 @@ public class EntrianPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cariOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,7 +461,10 @@ public class EntrianPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLihatEntrian, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cariOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -417,30 +472,33 @@ public class EntrianPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSerahDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerahDokActionPerformed
-        try {
-            // TODO add your handling code here:
-            Entrian entrian = new Entrian();
-            entrian.setEntrianId(Common.generateUuid());
-            entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
-            entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
-            entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
-            entrian.setOperatorEntri(operatorId.getText());
-            entrian.setWaktuSerah(new Date());
-            entrian.setIsSerah(1);
-            entrian.setNamaSurveiSensus("SE2016 UMK UMB");
-            
-            long result = EntrianService.insertEntrian(entrian);
-            if(result == 1){
-                JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                this.loadData();
-            }else{
-                JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            this.resetForm();
-        } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+        if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()==0){
+            try {
+               // TODO add your handling code here:
+               Entrian entrian = new Entrian();
+               entrian.setEntrianId(Common.generateUuid());
+               entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
+               entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
+               entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
+               entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
+               entrian.setWaktuSerah(new Date());
+               entrian.setIsSerah(1);
+               entrian.setNamaSurveiSensus("SE2016 UMK UMB");
+
+               long result = EntrianService.insertEntrian(entrian);
+               if(result == 1){
+                   JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                   this.loadData();
+               }else{
+                   JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+               }
+               this.resetForm();
+           } catch (SQLException ex) {
+               Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
+           }   
+        }else{
+            JOptionPane.showMessageDialog(this, "Isian masih ada yang kosong!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnSerahDokActionPerformed
 
     private void noBatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noBatchKeyPressed
@@ -466,26 +524,6 @@ public class EntrianPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jmlDokSerahKeyPressed
-
-    private void operatorIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_operatorIdKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(this.operatorId.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "Isian masih kosong", "Error", JOptionPane.ERROR_MESSAGE);
-                this.operatorId.requestFocus();
-            }else{
-                this.btnSerahDok.requestFocus();
-            }
-        }
-    }//GEN-LAST:event_operatorIdKeyPressed
-
-    private void operatorIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_operatorIdKeyTyped
-        // TODO add your handling code here:
-        char keyChar = evt.getKeyChar();
-        if(Character.isLowerCase(keyChar)){
-            evt.setKeyChar(Character.toUpperCase(keyChar));
-        }
-    }//GEN-LAST:event_operatorIdKeyTyped
 
     private void jmlDokTerimaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmlDokTerimaKeyPressed
         // TODO add your handling code here:
@@ -535,7 +573,7 @@ public class EntrianPanel extends javax.swing.JPanel {
             
             this.noBatch.setText(String.valueOf(e.getNomorBatch()));
             this.jmlDokSerah.setText(String.valueOf(e.getJumlahDokSerah()));
-            this.operatorId.setText(e.getOperatorEntri());
+            this.operatorId.setSelectedItem(e.getOperatorEntri());
             this.jmlDokTerima.requestFocus();
             this.statusTerima();
             this.setTampilFormTerima(true);
@@ -544,17 +582,33 @@ public class EntrianPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLihatEntrianActionPerformed
 
+    private void cariOperatorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariOperatorKeyTyped
+        // TODO add your handling code here:
+        char keyChar = evt.getKeyChar();
+        if(Character.isLowerCase(keyChar)){
+            evt.setKeyChar(Character.toUpperCase(keyChar));
+        }
+        
+        if(this.cariOperator.getText().equals("")){
+            this.loadData();
+        }else{
+            this.loadDataByOperator(this.cariOperator.getText().trim());
+        }
+    }//GEN-LAST:event_cariOperatorKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLihatEntrian;
     private javax.swing.JButton btnSerahDok;
     private javax.swing.JButton btnTerimaDok;
+    private javax.swing.JTextField cariOperator;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -562,7 +616,7 @@ public class EntrianPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jmlDokTerima;
     private javax.swing.JComboBox<String> kabkotaId;
     private javax.swing.JTextField noBatch;
-    private javax.swing.JTextField operatorId;
+    private javax.swing.JComboBox<String> operatorId;
     private javax.swing.JTable tabelEntrian;
     // End of variables declaration//GEN-END:variables
 }
