@@ -474,30 +474,33 @@ public class ValidasiPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSerahDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerahDokActionPerformed
-        try {
-            // TODO add your handling code here:
-            Validasi entrian = new Validasi();
-            entrian.setEntrianId(Common.generateUuid());
-            entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
-            entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
-            entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
-            entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
-            entrian.setWaktuSerah(new Date());
-            entrian.setIsSerah(1);
-            entrian.setNamaSurveiSensus("SE2016 UMK UMB");
-            
-            long result = ValidasiService.insertValidasi(entrian);
-            if(result == 1){
-                JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                this.loadData();
-            }else{
-                JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+        if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()!=0){
+            try {
+                // TODO add your handling code here:
+                Validasi entrian = new Validasi();
+                entrian.setEntrianId(Common.generateUuid());
+                entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
+                entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
+                entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
+                entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
+                entrian.setWaktuSerah(new Date());
+                entrian.setIsSerah(1);
+                entrian.setNamaSurveiSensus("SE2016 UMK UMB");
+
+                long result = ValidasiService.insertValidasi(entrian);
+                if(result == 1){
+                    JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                    this.loadData();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                this.resetForm();
+            } catch (SQLException ex) {
+                Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.resetForm();
-        } catch (SQLException ex) {
-            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(this, "Isian masih ada yang kosong!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnSerahDokActionPerformed
 
     private void noBatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noBatchKeyPressed

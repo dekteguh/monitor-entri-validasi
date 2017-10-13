@@ -472,7 +472,7 @@ public class EntrianPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSerahDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerahDokActionPerformed
-        if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()==0){
+        if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()!=0){
             try {
                // TODO add your handling code here:
                Entrian entrian = new Entrian();
