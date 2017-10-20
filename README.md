@@ -17,3 +17,4 @@ Lisensi yang digunakan adalah MIT
 - v.1.0.0   5 Oktober 2017
 - v.1.0.1   9 Oktober 2017 (Perbaikan halaman Login, navigasi menu, hide untuk kembali Entri/Validasi)
 - v.1.0.2   13 Oktober 2017 (Operator bentuk Dropdown, Search Operator)
+- v.1.0.3   21 Oktober 2017 (Tambah ui untuk Validasi Mitra, Perbaikan Query dan Service untuk Validasi, Perbaikan Navigasi menu, Operator Dropdown, dan Button Lihat Entri/Validasi)

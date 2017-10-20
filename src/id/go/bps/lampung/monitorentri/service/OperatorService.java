@@ -13,7 +13,6 @@ import id.go.bps.lampung.monitorentri.helper.QueryHelper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,14 @@ public class OperatorService {
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
-            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_OPERATOR_BY_STATUS);
-            ps.setString(1, statusOperator);
+            PreparedStatement ps;
+            if(statusOperator.equals("")){
+                ps = helper.getConnection().prepareStatement(QueryHelper.GET_OPERATORS);
+            }else{
+                ps = helper.getConnection().prepareStatement(QueryHelper.GET_OPERATOR_BY_STATUS);
+                ps.setString(1, statusOperator);
+            }
+            
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Operator o = new Operator();

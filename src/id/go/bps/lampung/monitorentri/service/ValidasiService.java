@@ -150,13 +150,14 @@ public class ValidasiService {
         return result;
     }
     
-    public static List<Validasi> getValidasiByIsSerah(int isSerah) throws SQLException{
+    public static List<Validasi> getValidasiByIsSerah(int isSerah, String statusOperator) throws SQLException{
         List<Validasi> result = new ArrayList<>();
         DBHelper helper = new DBHelper();
         try{
             helper.getConnection().setAutoCommit(false);
             PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.GET_VALIDASI_BY_IS_SERAH);
             ps.setInt(1, isSerah);
+            ps.setString(2, statusOperator);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Validasi entrian = new Validasi();

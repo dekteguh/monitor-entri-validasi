@@ -5,7 +5,6 @@
  */
 package id.go.bps.lampung.monitorentri.ui;
 
-import id.go.bps.lampung.monitorentri.db.Entrian;
 import id.go.bps.lampung.monitorentri.db.Operator;
 import id.go.bps.lampung.monitorentri.db.Validasi;
 import id.go.bps.lampung.monitorentri.helper.Common;
@@ -29,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ekoteguh
  */
-public class ValidasiPanel extends javax.swing.JPanel {
+public class ValidasiMitraPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form LoginPanel
@@ -38,7 +37,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
     MainFrame mainFrame;
     String entrianID;
     
-    public ValidasiPanel(MainFrame frame) {
+    public ValidasiMitraPanel(MainFrame frame) {
         this.mainFrame = frame;
         initComponents();
         this.customizeTable();
@@ -88,7 +87,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
         try{
             operatorId.removeAllItems();
             operatorId.addItem("-Pilih Nama Operator-");
-            List<Operator> arr = OperatorService.getOperatorsEntri("Organik");
+            List<Operator> arr = OperatorService.getOperatorsEntri("Mitra");
             for(Operator o : arr){
                 operatorId.addItem(o.getOperatorId());
             }
@@ -99,7 +98,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
     
     private void loadData(){
         try {
-            List<Validasi> arr = ValidasiService.getValidasiByIsSerah(1, "Organik");
+            List<Validasi> arr = ValidasiService.getValidasiByIsSerah(1,"Mitra");
             DefaultTableModel tableModel = (DefaultTableModel) this.tabelValidasi.getModel();
             while (tableModel.getRowCount() > 0){
                 tableModel.removeRow(0);
@@ -117,7 +116,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 i++;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiMitraPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -214,7 +213,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 51));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -495,7 +494,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 }
                 this.resetForm();
             } catch (SQLException ex) {
-                Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ValidasiMitraPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             JOptionPane.showMessageDialog(this, "Isian masih ada yang kosong!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -552,7 +551,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
             this.statusSerah();
             this.setTampilFormTerima(false);
         } catch (SQLException ex) {
-            Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ValidasiMitraPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnTerimaDokActionPerformed
 
@@ -581,7 +580,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
                 this.statusTerima();
                 this.setTampilFormTerima(true);
             } catch (SQLException ex) {
-                Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ValidasiMitraPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnLihatEntrianActionPerformed

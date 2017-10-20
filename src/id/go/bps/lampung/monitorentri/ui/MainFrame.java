@@ -124,7 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnMenuEntri.setBackground(new java.awt.Color(102, 102, 255));
         btnMenuEntri.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnMenuEntri.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuEntri.setText("Entri");
+        btnMenuEntri.setText("Entri Mitra");
         btnMenuEntri.setBorderPainted(false);
         btnMenuEntri.setOpaque(true);
         btnMenuEntri.setSize(new java.awt.Dimension(97, 35));
@@ -137,7 +137,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnMenuValidasi.setBackground(new java.awt.Color(102, 102, 255));
         btnMenuValidasi.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnMenuValidasi.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuValidasi.setText("Validasi");
+        btnMenuValidasi.setText("Validasi Pegawai");
         btnMenuValidasi.setBorderPainted(false);
         btnMenuValidasi.setOpaque(true);
         btnMenuValidasi.setSize(new java.awt.Dimension(97, 35));
@@ -150,7 +150,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnMenuProgress.setBackground(new java.awt.Color(102, 102, 255));
         btnMenuProgress.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnMenuProgress.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuProgress.setText("Progress");
+        btnMenuProgress.setText("Validasi Mitra");
         btnMenuProgress.setBorderPainted(false);
         btnMenuProgress.setOpaque(true);
         btnMenuProgress.setSize(new java.awt.Dimension(97, 35));
@@ -189,10 +189,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Kendali Pengolahan versi 1.0.2");
+        jLabel1.setText("Kendali Pengolahan versi 1.0.3");
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -204,11 +204,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(btnMenuEntri)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMenuValidasi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMenuProgress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(btnMenuValidasi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMenuLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -251,7 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void btnMenuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuProgressActionPerformed
         // TODO add your handling code here:
         this.mainPanel.removeAll();
-        this.mainPanel.add(new ProgressPanel(this));
+        this.mainPanel.add(new ValidasiMitraPanel(this));
         this.mainPanel.repaint();
         this.mainPanel.revalidate();
         this.setMenuEnable(true, this.status);

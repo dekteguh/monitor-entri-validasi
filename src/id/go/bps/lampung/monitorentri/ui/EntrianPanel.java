@@ -213,6 +213,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
+        jPanel1.setToolTipText("");
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -404,11 +405,11 @@ public class EntrianPanel extends javax.swing.JPanel {
             tabelEntrian.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
-        btnLihatEntrian.setBackground(new java.awt.Color(255, 0, 51));
+        btnLihatEntrian.setBackground(new java.awt.Color(51, 51, 255));
         btnLihatEntrian.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnLihatEntrian.setForeground(new java.awt.Color(255, 255, 255));
-        btnLihatEntrian.setText("Lihat Entrian");
-        btnLihatEntrian.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 102), 1, true));
+        btnLihatEntrian.setText("Lihat Entri");
+        btnLihatEntrian.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 1, true));
         btnLihatEntrian.setOpaque(true);
         btnLihatEntrian.setSize(new java.awt.Dimension(97, 35));
         btnLihatEntrian.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +423,7 @@ public class EntrianPanel extends javax.swing.JPanel {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Cari Operator:");
 
-        cariOperator.setBackground(new java.awt.Color(255, 51, 51));
+        cariOperator.setBackground(new java.awt.Color(0, 204, 102));
         cariOperator.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         cariOperator.setForeground(new java.awt.Color(255, 255, 255));
         cariOperator.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -558,27 +559,31 @@ public class EntrianPanel extends javax.swing.JPanel {
     private void btnLihatEntrianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatEntrianActionPerformed
         // TODO add your handling code here:
         int row = tabelEntrian.getSelectedRow();
-        String ID = tabelEntrian.getValueAt(row, 0).toString();
-        this.entrianID = ID;
-        try {
-            Entrian e = EntrianService.getEntrian(ID);
-            String kabkota = e.getKabkotaId().substring(2, 4);
-            if(kabkota.equals("71")){
-                this.kabkotaId.setSelectedIndex(14);
-            }else if(kabkota.equals("72")){
-                this.kabkotaId.setSelectedIndex(15);
-            }else{
-                this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
+        if(row < 0) {
+            JOptionPane.showMessageDialog(this, "Pilih Dokumen yang Anda ambil di dalam tabel Entri!", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            String ID = tabelEntrian.getValueAt(row, 0).toString();
+            this.entrianID = ID;
+            try {
+                Entrian e = EntrianService.getEntrian(ID);
+                String kabkota = e.getKabkotaId().substring(2, 4);
+                if(kabkota.equals("71")){
+                    this.kabkotaId.setSelectedIndex(14);
+                }else if(kabkota.equals("72")){
+                    this.kabkotaId.setSelectedIndex(15);
+                }else{
+                    this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
+                }
+
+                this.noBatch.setText(String.valueOf(e.getNomorBatch()));
+                this.jmlDokSerah.setText(String.valueOf(e.getJumlahDokSerah()));
+                this.operatorId.setSelectedItem(e.getOperatorEntri());
+                this.jmlDokTerima.requestFocus();
+                this.statusTerima();
+                this.setTampilFormTerima(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            this.noBatch.setText(String.valueOf(e.getNomorBatch()));
-            this.jmlDokSerah.setText(String.valueOf(e.getJumlahDokSerah()));
-            this.operatorId.setSelectedItem(e.getOperatorEntri());
-            this.jmlDokTerima.requestFocus();
-            this.statusTerima();
-            this.setTampilFormTerima(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLihatEntrianActionPerformed
 
