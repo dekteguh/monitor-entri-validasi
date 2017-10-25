@@ -63,12 +63,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnMenuHome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  <Component id="btnMenuEntri" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnMenuEntriMitra" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnMenuValidasiMitra" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnMenuValidasiPegawai" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnMenuProgress" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnMenuValidasi" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="196" max="32767" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="233" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnMenuLogout" min="-2" pref="116" max="-2" attributes="0"/>
@@ -81,12 +83,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnMenuEntri" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMenuValidasi" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMenuProgress" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMenuEntriMitra" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMenuValidasiPegawai" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMenuValidasiMitra" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMenuLogout" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMenuHome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMenuProgress" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
@@ -94,7 +97,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnMenuEntri">
+        <Component class="javax.swing.JButton" name="btnMenuEntriMitra">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="66" type="rgb"/>
@@ -113,10 +116,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuEntriActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuEntriMitraActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnMenuValidasi">
+        <Component class="javax.swing.JButton" name="btnMenuValidasiPegawai">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="66" type="rgb"/>
@@ -135,10 +138,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuValidasiActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuValidasiPegawaiActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnMenuProgress">
+        <Component class="javax.swing.JButton" name="btnMenuValidasiMitra">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="66" type="rgb"/>
@@ -157,7 +160,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuProgressActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuValidasiMitraActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMenuLogout">
@@ -220,6 +223,28 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Kendali Pengolahan versi 1.0.3"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnMenuProgress">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Progress Report"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="true"/>
+            <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[97, 35]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuProgressActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

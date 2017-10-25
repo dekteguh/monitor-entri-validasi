@@ -5,10 +5,18 @@
  */
 package id.go.bps.lampung.monitorentri.ui;
 
-import java.awt.FlowLayout;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.XChartPanel;
-import org.knowm.xchart.XYChart;
+import id.go.bps.lampung.monitorentri.helper.DBProperty;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  *
@@ -19,23 +27,46 @@ public class ProgressPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginPanel
      */
-    
     MainFrame mainFrame;
-    
+    WebEngine webEngine;
+
     public ProgressPanel(MainFrame frame) {
         this.mainFrame = frame;
         initComponents();
-        this.showChart();
+        this.showBrowser();
     }
-    
-    private void showChart(){
-        double[] xData = new double[] { 0.0, 1.0, 2.0 };
-        double[] yData = new double[] { 2.0, 1.0, 0.0 };
+
+    private void showBrowser() {
+        JFXPanel fXPanel = new JFXPanel();
+        fXPanel.setPreferredSize(new Dimension(990, 600));
+        this.panelChart.add(fXPanel, BorderLayout.CENTER);
+
+        Platform.runLater(() -> {
+            initFX(fXPanel);
+            this.webEngine.reload();
+        });
+    }
+
+    private void initFX(JFXPanel fxPanel) {
+        // This method is invoked on the JavaFX thread
+        Scene scene = createScene();
+        fxPanel.setScene(scene);
+    }
+
+    private Scene createScene() {
+        Group root = new Group();
+        StackPane stackPane = new StackPane();
+        Scene scene = new Scene(stackPane);
         
-        // Create Chart
-        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-        // Show it
-        panelChart.add(new XChartPanel(chart));
+        WebView webView = new WebView();
+        this.webEngine = webView.getEngine();
+        this.webEngine.setJavaScriptEnabled(true);
+        this.webEngine.load("http://" + DBProperty.getHost() + "/kendalientri");
+        
+        ObservableList<Node> children = stackPane.getChildren();
+        children.add(webView);
+        
+        return (scene);
     }
 
     /**
@@ -54,17 +85,8 @@ public class ProgressPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1024, 670));
         setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
-        panelChart.setLayout(panelChartLayout);
-        panelChartLayout.setHorizontalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
-        );
-        panelChartLayout.setVerticalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
-        );
-
+        panelChart.setPreferredSize(new java.awt.Dimension(993, 605));
+        panelChart.setLayout(new java.awt.BorderLayout());
         add(panelChart, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 

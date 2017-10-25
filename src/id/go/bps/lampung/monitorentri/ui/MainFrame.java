@@ -54,33 +54,41 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     
+    // sementara diaktifkan semua menu
     private void setMenuEnable(boolean b, int status){
         switch (status) {
             case 1:
                 //admin
                 this.btnMenuHome.setVisible(b);
-                this.btnMenuEntri.setVisible(b);
-                this.btnMenuValidasi.setVisible(b);
+                this.btnMenuEntriMitra.setVisible(b);
+                this.btnMenuValidasiPegawai.setVisible(b);
+                this.btnMenuValidasiMitra.setVisible(b);
                 this.btnMenuProgress.setVisible(b);
                 this.btnMenuLogout.setVisible(b);
                 break;
             case 2:
                 //supervisor
                 this.btnMenuHome.setVisible(b);
+                this.btnMenuEntriMitra.setVisible(!b);
+                this.btnMenuValidasiPegawai.setVisible(!b);
+                this.btnMenuValidasiMitra.setVisible(!b);
                 this.btnMenuProgress.setVisible(b);
                 this.btnMenuLogout.setVisible(b);
                 break;
             case 3:
                 //operator
                 this.btnMenuHome.setVisible(b);
-                this.btnMenuEntri.setVisible(b);
-                this.btnMenuValidasi.setVisible(b);
+                this.btnMenuEntriMitra.setVisible(b);
+                this.btnMenuValidasiPegawai.setVisible(b);
+                this.btnMenuValidasiMitra.setVisible(b);
+                this.btnMenuProgress.setVisible(!b);
                 this.btnMenuLogout.setVisible(b);
                 break;
             case 0:
                 this.btnMenuHome.setVisible(b);
-                this.btnMenuEntri.setVisible(b);
-                this.btnMenuValidasi.setVisible(b);
+                this.btnMenuEntriMitra.setVisible(b);
+                this.btnMenuValidasiPegawai.setVisible(b);
+                this.btnMenuValidasiMitra.setVisible(b);
                 this.btnMenuProgress.setVisible(b);
                 this.btnMenuLogout.setVisible(b);
                 break;
@@ -104,12 +112,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         };
         headerPanel = new javax.swing.JPanel();
-        btnMenuEntri = new javax.swing.JButton();
-        btnMenuValidasi = new javax.swing.JButton();
-        btnMenuProgress = new javax.swing.JButton();
+        btnMenuEntriMitra = new javax.swing.JButton();
+        btnMenuValidasiPegawai = new javax.swing.JButton();
+        btnMenuValidasiMitra = new javax.swing.JButton();
         btnMenuLogout = new javax.swing.JButton();
         btnMenuHome = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnMenuProgress = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,42 +130,42 @@ public class MainFrame extends javax.swing.JFrame {
         headerPanel.setBackground(new java.awt.Color(0, 102, 102));
         headerPanel.setPreferredSize(new java.awt.Dimension(1024, 54));
 
-        btnMenuEntri.setBackground(new java.awt.Color(102, 102, 255));
-        btnMenuEntri.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnMenuEntri.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuEntri.setText("Entri Mitra");
-        btnMenuEntri.setBorderPainted(false);
-        btnMenuEntri.setOpaque(true);
-        btnMenuEntri.setSize(new java.awt.Dimension(97, 35));
-        btnMenuEntri.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuEntriMitra.setBackground(new java.awt.Color(102, 102, 255));
+        btnMenuEntriMitra.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnMenuEntriMitra.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuEntriMitra.setText("Entri Mitra");
+        btnMenuEntriMitra.setBorderPainted(false);
+        btnMenuEntriMitra.setOpaque(true);
+        btnMenuEntriMitra.setSize(new java.awt.Dimension(97, 35));
+        btnMenuEntriMitra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuEntriActionPerformed(evt);
+                btnMenuEntriMitraActionPerformed(evt);
             }
         });
 
-        btnMenuValidasi.setBackground(new java.awt.Color(102, 102, 255));
-        btnMenuValidasi.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnMenuValidasi.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuValidasi.setText("Validasi Pegawai");
-        btnMenuValidasi.setBorderPainted(false);
-        btnMenuValidasi.setOpaque(true);
-        btnMenuValidasi.setSize(new java.awt.Dimension(97, 35));
-        btnMenuValidasi.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuValidasiPegawai.setBackground(new java.awt.Color(102, 102, 255));
+        btnMenuValidasiPegawai.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnMenuValidasiPegawai.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuValidasiPegawai.setText("Validasi Pegawai");
+        btnMenuValidasiPegawai.setBorderPainted(false);
+        btnMenuValidasiPegawai.setOpaque(true);
+        btnMenuValidasiPegawai.setSize(new java.awt.Dimension(97, 35));
+        btnMenuValidasiPegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuValidasiActionPerformed(evt);
+                btnMenuValidasiPegawaiActionPerformed(evt);
             }
         });
 
-        btnMenuProgress.setBackground(new java.awt.Color(102, 102, 255));
-        btnMenuProgress.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnMenuProgress.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenuProgress.setText("Validasi Mitra");
-        btnMenuProgress.setBorderPainted(false);
-        btnMenuProgress.setOpaque(true);
-        btnMenuProgress.setSize(new java.awt.Dimension(97, 35));
-        btnMenuProgress.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuValidasiMitra.setBackground(new java.awt.Color(102, 102, 255));
+        btnMenuValidasiMitra.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnMenuValidasiMitra.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuValidasiMitra.setText("Validasi Mitra");
+        btnMenuValidasiMitra.setBorderPainted(false);
+        btnMenuValidasiMitra.setOpaque(true);
+        btnMenuValidasiMitra.setSize(new java.awt.Dimension(97, 35));
+        btnMenuValidasiMitra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuProgressActionPerformed(evt);
+                btnMenuValidasiMitraActionPerformed(evt);
             }
         });
 
@@ -194,6 +203,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Kendali Pengolahan versi 1.0.3");
 
+        btnMenuProgress.setBackground(new java.awt.Color(102, 102, 255));
+        btnMenuProgress.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnMenuProgress.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuProgress.setText("Progress Report");
+        btnMenuProgress.setBorderPainted(false);
+        btnMenuProgress.setOpaque(true);
+        btnMenuProgress.setSize(new java.awt.Dimension(97, 35));
+        btnMenuProgress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuProgressActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
@@ -202,12 +224,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnMenuHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btnMenuEntri)
+                .addComponent(btnMenuEntriMitra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMenuValidasiMitra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMenuValidasiPegawai)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMenuProgress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMenuValidasi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMenuLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,12 +242,13 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMenuEntri)
-                    .addComponent(btnMenuValidasi)
-                    .addComponent(btnMenuProgress)
+                    .addComponent(btnMenuEntriMitra)
+                    .addComponent(btnMenuValidasiPegawai)
+                    .addComponent(btnMenuValidasiMitra)
                     .addComponent(btnMenuLogout)
                     .addComponent(btnMenuHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(btnMenuProgress))
                 .addGap(13, 13, 13))
         );
 
@@ -232,30 +257,30 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuEntriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuEntriActionPerformed
+    private void btnMenuEntriMitraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuEntriMitraActionPerformed
         // TODO add your handling code here:
         this.mainPanel.removeAll();
         this.mainPanel.add(new EntrianPanel(this));
         this.mainPanel.repaint();
         this.mainPanel.revalidate();
-    }//GEN-LAST:event_btnMenuEntriActionPerformed
+    }//GEN-LAST:event_btnMenuEntriMitraActionPerformed
 
-    private void btnMenuValidasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuValidasiActionPerformed
+    private void btnMenuValidasiPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuValidasiPegawaiActionPerformed
         // TODO add your handling code here:
         this.mainPanel.removeAll();
         this.mainPanel.add(new ValidasiPanel(this));
         this.mainPanel.repaint();
         this.mainPanel.revalidate();
-    }//GEN-LAST:event_btnMenuValidasiActionPerformed
+    }//GEN-LAST:event_btnMenuValidasiPegawaiActionPerformed
 
-    private void btnMenuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuProgressActionPerformed
+    private void btnMenuValidasiMitraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuValidasiMitraActionPerformed
         // TODO add your handling code here:
         this.mainPanel.removeAll();
         this.mainPanel.add(new ValidasiMitraPanel(this));
         this.mainPanel.repaint();
         this.mainPanel.revalidate();
         this.setMenuEnable(true, this.status);
-    }//GEN-LAST:event_btnMenuProgressActionPerformed
+    }//GEN-LAST:event_btnMenuValidasiMitraActionPerformed
 
     private void btnMenuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuLogoutActionPerformed
         // TODO add your handling code here:
@@ -275,13 +300,23 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMenuEnable(true, this.status);
     }//GEN-LAST:event_btnMenuHomeActionPerformed
 
+    private void btnMenuProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuProgressActionPerformed
+        // TODO add your handling code here:
+        this.mainPanel.removeAll();
+        this.mainPanel.add(new ProgressPanel(this));
+        this.mainPanel.repaint();
+        this.mainPanel.revalidate();
+        this.setMenuEnable(true, this.status);
+    }//GEN-LAST:event_btnMenuProgressActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMenuEntri;
+    private javax.swing.JButton btnMenuEntriMitra;
     private javax.swing.JButton btnMenuHome;
     private javax.swing.JButton btnMenuLogout;
     private javax.swing.JButton btnMenuProgress;
-    private javax.swing.JButton btnMenuValidasi;
+    private javax.swing.JButton btnMenuValidasiMitra;
+    private javax.swing.JButton btnMenuValidasiPegawai;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel mainPanel;
