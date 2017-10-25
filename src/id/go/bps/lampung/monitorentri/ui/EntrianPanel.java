@@ -476,24 +476,29 @@ public class EntrianPanel extends javax.swing.JPanel {
         if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()!=0){
             try {
                // TODO add your handling code here:
-               Entrian entrian = new Entrian();
-               entrian.setEntrianId(Common.generateUuid());
-               entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
-               entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
-               entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
-               entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
-               entrian.setWaktuSerah(new Date());
-               entrian.setIsSerah(1);
-               entrian.setNamaSurveiSensus("SE2016 UMK UMB");
-
-               long result = EntrianService.insertEntrian(entrian);
-               if(result == 1){
-                   JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                   this.loadData();
+               int sudahEntri = EntrianService.cekSudahEntri(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5), Integer.parseInt(noBatch.getText()));
+               if(sudahEntri > 0){
+                   JOptionPane.showMessageDialog(this, "Data sudah ada di database.\nForm ini hanya dipakai saat mengambil dokumen!", "Error", JOptionPane.ERROR_MESSAGE);
                }else{
-                   JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    Entrian entrian = new Entrian();
+                    entrian.setEntrianId(Common.generateUuid());
+                    entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
+                    entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
+                    entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
+                    entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
+                    entrian.setWaktuSerah(new Date());
+                    entrian.setIsSerah(1);
+                    entrian.setNamaSurveiSensus("SE2016 UMK UMB");
+
+                    long result = EntrianService.insertEntrian(entrian);
+                    if(result == 1){
+                        JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                        this.loadData();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }  
                }
-               this.resetForm();
+               this.resetForm(); 
            } catch (SQLException ex) {
                Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
            }   

@@ -192,4 +192,33 @@ public class ValidasiService {
         }
         return result;
     }
+    
+    public static int cekSudahValidasi(String kabkotaId, int noBatch) throws SQLException{
+        int sudahEntri = 0;
+        DBHelper helper = new DBHelper();
+        try{
+            helper.getConnection().setAutoCommit(false);
+            PreparedStatement ps = helper.getConnection().prepareStatement(QueryHelper.CEK_SUDAH_VALIDASI);
+            ps.setString(1, kabkotaId);
+            ps.setInt(2, noBatch);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                sudahEntri = rs.getInt("rowCount");
+            }
+            helper.getConnection().commit();
+            System.out.println(TAG + ": User berhasil cek sudah Validasi");
+        }catch(SQLException ex){
+            System.out.println(TAG + ": " + ex.getMessage());
+        }finally{
+            try{
+                helper.getConnection().setAutoCommit(true);
+                if(helper.getConnection() != null){
+                    helper.getConnection().close();
+                }
+            }catch(SQLException ex){
+                System.out.println(TAG + ": " + ex.getMessage());
+            }
+        }
+        return sudahEntri;
+    }
 }

@@ -34,10 +34,9 @@ public class ValidasiPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginPanel
      */
-    
     MainFrame mainFrame;
     String entrianID;
-    
+
     public ValidasiPanel(MainFrame frame) {
         this.mainFrame = frame;
         initComponents();
@@ -47,8 +46,8 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.setTampilFormTerima(false);
         this.loadOperator();
     }
-    
-    private void resetForm(){
+
+    private void resetForm() {
         this.kabkotaId.setSelectedIndex(0);
         this.noBatch.setText("");
         this.jmlDokSerah.setText("");
@@ -56,8 +55,8 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.jmlDokTerima.setText("");
         this.kabkotaId.requestFocus();
     }
-    
-    private void statusSerah(){
+
+    private void statusSerah() {
         this.kabkotaId.setEnabled(true);
         this.noBatch.setEnabled(true);
         this.jmlDokSerah.setEnabled(true);
@@ -66,8 +65,8 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.jmlDokTerima.setEnabled(true);
         this.btnTerimaDok.setEnabled(true);
     }
-    
-    private void statusTerima(){
+
+    private void statusTerima() {
         this.kabkotaId.setEnabled(false);
         this.noBatch.setEnabled(false);
         this.jmlDokSerah.setEnabled(false);
@@ -76,37 +75,37 @@ public class ValidasiPanel extends javax.swing.JPanel {
         this.jmlDokTerima.setEnabled(true);
         this.btnTerimaDok.setEnabled(true);
     }
-    
-    private void setTampilFormTerima(boolean b){
+
+    private void setTampilFormTerima(boolean b) {
         this.jLabel6.setVisible(b);
         this.jmlDokTerima.setVisible(b);
         this.btnTerimaDok.setVisible(b);
         this.jmlDokTerima.requestFocus();
     }
-    
-    private void loadOperator(){
-        try{
+
+    private void loadOperator() {
+        try {
             operatorId.removeAllItems();
             operatorId.addItem("-Pilih Nama Operator-");
             List<Operator> arr = OperatorService.getOperatorsEntri("Organik");
-            for(Operator o : arr){
+            for (Operator o : arr) {
                 operatorId.addItem(o.getOperatorId());
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void loadData(){
+
+    private void loadData() {
         try {
             List<Validasi> arr = ValidasiService.getValidasiByIsSerah(1, "Organik");
             DefaultTableModel tableModel = (DefaultTableModel) this.tabelValidasi.getModel();
-            while (tableModel.getRowCount() > 0){
+            while (tableModel.getRowCount() > 0) {
                 tableModel.removeRow(0);
             }
-            
+
             int i = 0;
-            for(Validasi v : arr){
+            for (Validasi v : arr) {
                 tableModel.addRow(new Object[]{
                     v.getEntrianId(),
                     v.getKabkotaId(),
@@ -120,17 +119,17 @@ public class ValidasiPanel extends javax.swing.JPanel {
             Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void loadDataByOperator(String operator){
+
+    private void loadDataByOperator(String operator) {
         try {
             List<Validasi> arr = OperatorService.searchOperatorsValidasiByKeyword(operator);
             DefaultTableModel tableModel = (DefaultTableModel) this.tabelValidasi.getModel();
-            while (tableModel.getRowCount() > 0){
+            while (tableModel.getRowCount() > 0) {
                 tableModel.removeRow(0);
             }
-            
+
             int i = 0;
-            for(Validasi e : arr){
+            for (Validasi e : arr) {
                 tableModel.addRow(new Object[]{
                     e.getEntrianId(),
                     e.getKabkotaId(),
@@ -144,17 +143,16 @@ public class ValidasiPanel extends javax.swing.JPanel {
             Logger.getLogger(EntrianPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     private void customizeTable() {
         //tabelEntrian.getTableHeader().setBackground(Color.WHITE);
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 14);
         tabelValidasi.getTableHeader().setFont(f);
         ((DefaultTableCellRenderer) tabelValidasi.getTableHeader().getDefaultRenderer()).setHorizontalAlignment((int) CENTER_ALIGNMENT);
         ((DefaultTableCellRenderer) tabelValidasi.getTableHeader().getDefaultRenderer()).setVerticalAlignment((int) CENTER_ALIGNMENT);
-        
+
         tabelValidasi.setRowHeight(30);
-        
+
         DefaultTableCellRenderer centerCellRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -178,7 +176,7 @@ public class ValidasiPanel extends javax.swing.JPanel {
         tabelValidasi.getColumnModel().getColumn(3).setCellRenderer(centerCellRenderer);
         tabelValidasi.getColumnModel().getColumn(4).setCellRenderer(centerCellRenderer);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -473,42 +471,47 @@ public class ValidasiPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSerahDokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerahDokActionPerformed
-        if(kabkotaId.getSelectedIndex()!=0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex()!=0){
+        if (kabkotaId.getSelectedIndex() != 0 && !noBatch.getText().equals("") && !jmlDokSerah.getText().equals("") && operatorId.getSelectedIndex() != 0) {
             try {
                 // TODO add your handling code here:
-                Validasi entrian = new Validasi();
-                entrian.setEntrianId(Common.generateUuid());
-                entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
-                entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
-                entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
-                entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
-                entrian.setWaktuSerah(new Date());
-                entrian.setIsSerah(1);
-                entrian.setNamaSurveiSensus("SE2016 UMK UMB");
+                int sudahEntri = ValidasiService.cekSudahValidasi(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5), Integer.parseInt(noBatch.getText()));
+                if (sudahEntri > 0) {
+                    JOptionPane.showMessageDialog(this, "Data sudah ada di database.\nForm ini hanya dipakai saat mengambil dokumen!", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Validasi entrian = new Validasi();
+                    entrian.setEntrianId(Common.generateUuid());
+                    entrian.setKabkotaId(kabkotaId.getSelectedItem().toString().split(" ")[0].substring(1, 5));
+                    entrian.setNomorBatch(Integer.parseInt(noBatch.getText()));
+                    entrian.setJumlahDokSerah(Integer.parseInt(jmlDokSerah.getText()));
+                    entrian.setOperatorEntri(operatorId.getSelectedItem().toString());
+                    entrian.setWaktuSerah(new Date());
+                    entrian.setIsSerah(1);
+                    entrian.setNamaSurveiSensus("SE2016 UMK UMB");
 
-                long result = ValidasiService.insertValidasi(entrian);
-                if(result == 1){
-                    JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                    this.loadData();
-                }else{
-                    JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    long result = ValidasiService.insertValidasi(entrian);
+                    if (result == 1) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                        this.loadData();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Data gagal disimpan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 this.resetForm();
             } catch (SQLException ex) {
                 Logger.getLogger(ValidasiPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Isian masih ada yang kosong!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSerahDokActionPerformed
 
     private void noBatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noBatchKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(this.noBatch.getText().equals("")){
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (this.noBatch.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Isian masih kosong", "Error", JOptionPane.ERROR_MESSAGE);
                 this.noBatch.requestFocus();
-            }else{
+            } else {
                 this.jmlDokSerah.requestFocus();
             }
         }
@@ -516,11 +519,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
 
     private void jmlDokSerahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmlDokSerahKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(Integer.parseInt(this.jmlDokSerah.getText()) > 20 || Integer.parseInt(this.jmlDokSerah.getText()) < 1){
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (Integer.parseInt(this.jmlDokSerah.getText()) > 20 || Integer.parseInt(this.jmlDokSerah.getText()) < 1) {
                 JOptionPane.showMessageDialog(this, "Isian antara 1-20 dokumen", "Error", JOptionPane.ERROR_MESSAGE);
                 this.jmlDokSerah.requestFocus();
-            }else{
+            } else {
                 this.operatorId.requestFocus();
             }
         }
@@ -528,11 +531,11 @@ public class ValidasiPanel extends javax.swing.JPanel {
 
     private void jmlDokTerimaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmlDokTerimaKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
-            if(Integer.parseInt(this.jmlDokTerima.getText()) > 20 || Integer.parseInt(this.jmlDokTerima.getText()) < 1){
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (Integer.parseInt(this.jmlDokTerima.getText()) > 20 || Integer.parseInt(this.jmlDokTerima.getText()) < 1) {
                 JOptionPane.showMessageDialog(this, "Isian antara 1-20 dokumen", "Error", JOptionPane.ERROR_MESSAGE);
                 this.jmlDokTerima.requestFocus();
-            }else{
+            } else {
                 this.btnTerimaDok.requestFocus();
             }
         }
@@ -542,10 +545,10 @@ public class ValidasiPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             long result = ValidasiService.updateStatusTerimaValidasi(Integer.parseInt(this.jmlDokTerima.getText()), this.entrianID);
-            if(result == 1){
+            if (result == 1) {
                 JOptionPane.showMessageDialog(this, "Data berhasil diupdate!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 this.loadData();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Data gagal diupdate!", "Error", JOptionPane.ERROR_MESSAGE);
             }
             this.resetForm();
@@ -559,19 +562,19 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private void btnLihatEntrianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatEntrianActionPerformed
         // TODO add your handling code here:
         int row = tabelValidasi.getSelectedRow();
-        if(row < 0) {
+        if (row < 0) {
             JOptionPane.showMessageDialog(this, "Pilih Dokumen yang Anda ambil di dalam tabel Validasi!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             String ID = tabelValidasi.getValueAt(row, 0).toString();
             this.entrianID = ID;
             try {
                 Validasi e = ValidasiService.getValidasi(ID);
                 String kabkota = e.getKabkotaId().substring(2, 4);
-                if(kabkota.equals("71")){
+                if (kabkota.equals("71")) {
                     this.kabkotaId.setSelectedIndex(14);
-                }else if(kabkota.equals("72")){
+                } else if (kabkota.equals("72")) {
                     this.kabkotaId.setSelectedIndex(15);
-                }else{
+                } else {
                     this.kabkotaId.setSelectedIndex(Integer.parseInt(kabkota));
                 }
                 this.noBatch.setText(String.valueOf(e.getNomorBatch()));
@@ -589,13 +592,13 @@ public class ValidasiPanel extends javax.swing.JPanel {
     private void cariOperatorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariOperatorKeyTyped
         // TODO add your handling code here:
         char keyChar = evt.getKeyChar();
-        if(Character.isLowerCase(keyChar)){
+        if (Character.isLowerCase(keyChar)) {
             evt.setKeyChar(Character.toUpperCase(keyChar));
         }
 
-        if(this.cariOperator.getText().equals("")){
+        if (this.cariOperator.getText().equals("")) {
             this.loadData();
-        }else{
+        } else {
             this.loadDataByOperator(this.cariOperator.getText().trim());
         }
     }//GEN-LAST:event_cariOperatorKeyTyped

@@ -36,4 +36,7 @@ public class QueryHelper {
 
     public static final String SEARCH_ENTRIAN_BY_OPERATOR = "SELECT * FROM entrian WHERE operator_id LIKE ? AND is_serah=1";
     public static final String SEARCH_VALIDASI_BY_OPERATOR = "SELECT * FROM validasi WHERE operator_id LIKE ? AND is_serah=1";
+
+    public static final String CEK_SUDAH_ENTRI = "SELECT COUNT(*) as rowCount FROM entrian WHERE kabkota_id=? AND no_batch=?";
+    public static final String CEK_SUDAH_VALIDASI = "SELECT COUNT(*) as rowCount FROM validasi WHERE kabkota_id=? AND no_batch=?";
 }
